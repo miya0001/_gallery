@@ -11,7 +11,7 @@ WordPress masonry layout gallery plugin.
 
 == Description ==
 
-This plugin replaces WordPress `[gallery]` plugin to masonry layout.
+This plugin replaces WordPress `[gallery]` shortcode to masonry layout.
 
 * CSS only, no JS.
 * Image only, no caption.
