@@ -21,6 +21,12 @@ class Masonry_Gallery
 	{
 		add_filter( 'post_gallery', array( $this, 'post_gallery' ), 10, 3 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
+		add_action( 'admin_init', array( $this, 'admin_init' ) );
+	}
+
+	public function admin_init()
+	{
+		add_editor_style( plugins_url( 'css/masonry-gallery.css', __FILE__ ) );
 	}
 
 	public function wp_enqueue_scripts()
@@ -89,8 +95,8 @@ class Masonry_Gallery
 				$image_output = wp_get_attachment_link( $id, $atts['size'], true, false, false, $attr );
 			}
 
-			$output .= "<figure class='gallery-item'>";
-			$output .= "<div class='gallery-icon'>$image_output</div>";
+			$output .= "<figure class='masonry-gallery-item'>";
+			$output .= $image_output;
 			$output .= "</figure>";
 		}
 

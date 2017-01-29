@@ -1,16 +1,30 @@
-.masonry-gallery { /* Masonry container */
+.masonry-gallery
+{
 	column-gap: 8px;
 	margin: 1em 0;
+	padding: 0;
 }
 
-.masonry-gallery .gallery-item { /* Masonry bricks or child elements */
+.masonry-gallery .masonry-gallery-item
+{
 	display: inline-block;
-	margin: 0 0 8px 0 !important;
+	margin: 0 0 8px 0;
+	padding: 0;
 	width: 100%;
+	max-width: 100%;
+}
+
+.masonry-gallery a
+{
+	display: block;
+	text-align: center;
+	padding: 0;
+	margin: 0;
 }
 
 .masonry-gallery img
 {
-	display: block;
-	margin: 0 auto;
+	padding: 0;
+	margin: 0;
+	vertical-align: bottom;
 }
