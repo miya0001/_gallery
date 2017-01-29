@@ -22,16 +22,6 @@ So it is very simple.
 
 * Go to the plugins administration screen in your WordPress admin, click on Add New, search for "litty" and click on Install Now.
 
-== Frequently Asked Questions ==
-
-= A question that someone might have =
-
-An answer to that question.
-
-= What about foo bar? =
-
-Answer to foo bar dilemma.
-
 == Screenshots ==
 
 1. Screenshot.
