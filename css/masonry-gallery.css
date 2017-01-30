@@ -1,6 +1,7 @@
 .masonry-gallery
 {
 	column-gap: 8px;
+	-moz-column-gap: 8px;
 	margin: 1em 0;
 	padding: 0;
 }
@@ -20,6 +21,7 @@
 	text-align: center;
 	padding: 0;
 	margin: 0;
+	border: none;
 }
 
 .masonry-gallery img
@@ -27,4 +29,5 @@
 	padding: 0;
 	margin: 0;
 	vertical-align: bottom;
+	border: none;
 }

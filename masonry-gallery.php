@@ -78,15 +78,15 @@ class Masonry_Gallery
 
 		$columns = intval( $atts['columns'] );
 
-		$output = "<div class='masonry-gallery' style='column-count: {$columns};'>";
+		$output = "<div class='masonry-gallery' style='column-count: {$columns}; -moz-column-count: {$columns};'>";
 
 		foreach ( $attachments as $id => $attachment ) {
 			if ( ! empty( $atts['link'] ) && 'file' === $atts['link'] ) {
-				$image_output = wp_get_attachment_link( $id, $atts['size'], false, false, false, $attr );
+				$image_output = wp_get_attachment_link( $id, $atts['size'], false, false, false );
 			} elseif ( ! empty( $atts['link'] ) && 'none' === $atts['link'] ) {
-				$image_output = wp_get_attachment_image( $id, $atts['size'], false, $attr );
+				$image_output = wp_get_attachment_image( $id, $atts['size'], false );
 			} else {
-				$image_output = wp_get_attachment_link( $id, $atts['size'], true, false, false, $attr );
+				$image_output = wp_get_attachment_link( $id, $atts['size'], true, false, false );
 			}
 
 			$output .= "<figure class='masonry-gallery-item'>";
