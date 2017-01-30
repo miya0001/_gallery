@@ -13,22 +13,13 @@ Adds a Masonry layout to the WordPress Gallery.
 
 This plugin replaces WordPress `[gallery]` shortcode to masonry layout.
 
+* A lightweight, no-dependency.
 * CSS only, no JS.
 * Image only, no caption.
 
-So it is very simple.
+See more information:
 
-If you want to change number of columns for mobile or tablet. Please put styles like following in your theme.
-
-`
-@media screen and ( max-width: 768px )
-{
-	.masonry-gallery
-	{
-		column-count: 3 !important;
-	}
-}
-`
+https://github.com/miya0001/masonry-gallery
 
 == Installation ==
 
