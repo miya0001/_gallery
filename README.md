@@ -6,6 +6,7 @@ This plugin will replace WordPress `[gallery]` shortcode to masonry layout.
 
 ## Features
 
+* A lightweight, no-dependency.
 * CSS only, no JS.
 * Image only, no caption.
 
@@ -38,7 +39,7 @@ https://github.com/miya0001/masonry-gallery/blob/master/css/masonry-gallery.css
 
 If you want to change number of columns for mobile or tablet. Please put styles like following in your theme.
 
-`
+```
 @media screen and ( max-width: 768px )
 {
 	.masonry-gallery
@@ -47,4 +48,4 @@ If you want to change number of columns for mobile or tablet. Please put styles 
 		-moz-column-count: 3 !important;
 	}
 }
-`
+```
