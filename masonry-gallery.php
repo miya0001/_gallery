@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name:     Masonry Gallery
- * Plugin URI:      https://github.com/miya0001/masonry-gallery
+ * Plugin Name:     Miya Gallery
+ * Plugin URI:      https://github.com/miya0001/miya-gallery
  * Description:     Masonry layout gallery plugin.
  * Author:          Takayuki Miyauchi
  * Author URI:      https://miya.io/

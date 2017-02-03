@@ -1,6 +1,6 @@
-# Masonry Gallery
+# Miya Gallery
 
-[![Build Status](https://travis-ci.org/miya0001/masonry-gallery.svg?branch=master)](https://travis-ci.org/miya0001/masonry-gallery)
+[![Build Status](https://travis-ci.org/miya0001/miya-gallery.svg?branch=master)](https://travis-ci.org/miya0001/miya-gallery)
 
 This plugin will replace WordPress `[gallery]` shortcode to masonry layout.
 

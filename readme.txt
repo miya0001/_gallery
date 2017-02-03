@@ -1,4 +1,4 @@
-=== Masonry Gallery ===
+=== Miya Gallery ===
 Contributors: miyauchi
 Tags: gallery, masonry
 Requires at least: 3.7
