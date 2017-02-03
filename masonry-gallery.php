@@ -2,7 +2,7 @@
 /**
  * Plugin Name:     Miya Gallery
  * Plugin URI:      https://github.com/miya0001/miya-gallery
- * Description:     Masonry layout gallery plugin.
+ * Description:     Grid style gallery plugin.
  * Author:          Takayuki Miyauchi
  * Author URI:      https://miya.io/
  * Version:         0.1.0
