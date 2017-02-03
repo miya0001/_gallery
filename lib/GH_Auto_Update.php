@@ -1,6 +1,6 @@
 <?php
 
-class WP_AutoUpdate
+class GH_Auto_Update
 {
 	/**
 	 * The plugin current version
@@ -9,10 +9,10 @@ class WP_AutoUpdate
 	private $current_version;
 
 	/**
-	 * The plugin remote update path
+	 * The user name of the GitHub
 	 * @var string
 	 */
-	private $update_path;
+	private $gh_api;
 
 	/**
 	 * Plugin Slug (plugin_directory/plugin_file.php)
@@ -29,14 +29,19 @@ class WP_AutoUpdate
 	/**
 	 * Initialize a new instance of the WordPress Auto-Update class
 	 * @param string $current_version
-	 * @param string $update_path
+	 * @param string $gh_user
+	 * @param string $gh_repo
 	 * @param string $plugin_slug
 	 */
-	public function __construct( $current_version, $update_path, $plugin_slug )
+	public function __construct( $current_version, $gh_user, $gh_repo, $plugin_slug )
 	{
 		// Set the class public variables
 		$this->current_version = $current_version;
-		$this->update_path = $update_path;
+		$this->gh_api = sprintf(
+			'https://api.github.com/repos/%s/%s/releases/latest',
+			$gh_user,
+			$gh_repo
+		);
 
 		// Set the Plugin Slug
 		$this->plugin_slug = $plugin_slug;
@@ -63,18 +68,19 @@ class WP_AutoUpdate
 		}
 
 		// Get the remote version
-		$res = wp_remote_get( 'https://api.github.com/repos/miya0001/miya-gallery/releases/latest' );
-		$remote_version = wp_remote_get( $res );
+		$res = wp_remote_get( $this->gh_api );
+		$body = wp_remote_retrieve_body( $res );
+		$remote_version = json_decode( $body );
 
 		// If a newer version is available, add the update
 		if ( version_compare( $this->current_version, $remote_version->tag_name, '<' ) ) {
 			$obj = new stdClass();
 			$obj->slug = $this->slug;
 			$obj->new_version = $remote_version->tag_name;
-			$obj->url = $remote_version->url;
+			$obj->url = $remote_version->html_url;
 			$obj->plugin = $this->plugin_slug;
-			$obj->package = $remote_version->package;
-			$obj->tested = $remote_version->tested;
+			$obj->package = $remote_version->zipball_url;
+			// $obj->tested = $remote_version->tested;
 			$transient->response[$this->plugin_slug] = $obj;
 		}
 		return $transient;
@@ -88,31 +94,33 @@ class WP_AutoUpdate
 	 * @param object $arg
 	 * @return bool|object
 	 */
-	public function check_info($obj, $action, $arg)
+	public function check_info( $obj, $action, $arg )
 	{
-		if (($action=='query_plugins' || $action=='plugin_information') &&
-		    isset($arg->slug) && $arg->slug === $this->slug) {
-			return $this->getRemote('info');
+		if ( ( 'query_plugins' === $action || 'plugin_information' === $action ) &&
+				isset( $arg->slug ) && $arg->slug === $this->slug ) {
+			// Get the remote version
+			$res = wp_remote_get( $this->gh_api );
+			$body = wp_remote_retrieve_body( $res );
+			$remote_version = json_decode( $body );
+
+			$obj = new stdClass();
+			$obj->slug = $this->slug;
+			$obj->plugin_name = $this->slug;
+			$obj->new_version = $remote_version->tag_name;
+			$obj->last_updated = $remote_version->published_at;
+			$obj->sections = array(
+				'changelog' => $remote_version->body
+			);
+			$obj->download_link = $remote_version->zipball_url;
+
+			// $obj->url = $remote_version->html_url;
+			// $obj->plugin = $this->plugin_slug;
+			// $obj->package = $remote_version->zipball_url;
+			// $obj->tested = $remote_version->tested;
+			// $transient->response[$this->plugin_slug] = $obj;
+			return $obj;
 		}
 
 		return $obj;
-	}
-
-	/**
-	 * Return the remote version
-	 *
-	 * @return string $remote_version
-	 */
-	public function getRemote( $action = '' )
-	{
-		// Make the POST request
-		$request = wp_remote_post($this->update_path, $params );
-
-		// Check if response is valid
-		if ( !is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ) {
-			return @unserialize( $request['body'] );
-		}
-
-		return false;
 	}
 }
