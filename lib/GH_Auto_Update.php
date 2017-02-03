@@ -2,128 +2,65 @@
 
 class GH_Auto_Update
 {
-	/**
-	 * The plugin current version
-	 * @var string
-	 */
-	private $current_version;
-
-	/**
-	 * The user name of the GitHub
-	 * @var string
-	 */
-	private $gh_api;
 	private $gh_user;
 	private $gh_repo;
-
-	/**
-	 * Plugin Slug (plugin_directory/plugin_file.php)
-	 * @var string
-	 */
-	private $plugin_slug;
-
-	/**
-	 * Plugin name (plugin_file)
-	 * @var string
-	 */
+	private $plugin_file;
 	private $slug;
 
-	/**
-	 * Initialize a new instance of the WordPress Auto-Update class
-	 * @param string $current_version
-	 * @param string $gh_user
-	 * @param string $gh_repo
-	 * @param string $plugin_slug
-	 */
-	public function __construct( $current_version, $gh_user, $gh_repo, $plugin_slug )
+	public function __construct( $gh_user, $gh_repo, $plugin_file )
 	{
-		// Set the class public variables
-		$this->current_version = $current_version;
-		$this->gh_api = sprintf(
-			'https://api.github.com/repos/%s/%s/releases/latest',
-			$gh_user,
-			$gh_repo
-		);
-		$this->gh_user = $gh_user;
-		$this->gh_repo = $gh_repo;
+		$this->gh_user     = $gh_user;
+		$this->gh_repo     = $gh_repo;
+		$this->plugin_file = $plugin_file;
+		$this->slug        = plugin_basename( $plugin_file );
 
-		// Set the Plugin Slug
-		$this->plugin_slug = $plugin_slug;
-		list ($t1, $t2) = explode( '/', $plugin_slug );
-		$this->slug = str_replace( '.php', '', $t2 );
-
-		add_filter(
-			'pre_set_site_transient_update_plugins',
-			array( $this, 'pre_set_site_transient_update_plugins' )
-		);
-
+		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'pre_set_site_transient_update_plugins' ) );
 		add_filter( 'plugins_api', array( $this, 'plugins_api' ), 10, 3 );
-
 		add_filter( 'upgrader_source_selection', array( $this, 'upgrader_source_selection' ), 1 );
 	}
 
 	public function upgrader_source_selection( $source )
 	{
-		if(  strpos( $source, $this->slug ) === false )
+		if(  strpos( $source, $this->gh_repo ) === false )
 			return $source;
 
 		$path_parts = pathinfo( $source );
-		$newsource = trailingslashit( $path_parts['dirname'] ) . trailingslashit( $this->slug );
+		$newsource = trailingslashit( $path_parts['dirname'] ) . trailingslashit( $this->gh_repo );
 		rename( $source, $newsource );
 		return $newsource;
 	}
 
-	/**
-	 * Add our self-hosted autoupdate plugin to the filter transient
-	 *
-	 * @param $transient
-	 * @return object $ transient
-	 */
 	public function pre_set_site_transient_update_plugins( $transient )
 	{
 		if ( empty( $transient->checked ) ) {
 			return $transient;
 		}
 
-		// Get the remote version
-		$res = wp_remote_get( $this->gh_api );
-		$body = wp_remote_retrieve_body( $res );
-		$remote_version = json_decode( $body );
+		$remote_version = $this->get_api_data();
+		$current_version = $this->get_plugin_info();
 
-		// If a newer version is available, add the update
-		if ( version_compare( $this->current_version, $remote_version->tag_name, '<' ) ) {
+		if ( version_compare( $current_version['Version'], $remote_version->tag_name, '<' ) ) {
 			$obj = new stdClass();
 			$obj->slug = $this->slug;
 			$obj->new_version = $remote_version->tag_name;
 			$obj->url = $remote_version->html_url;
-			$obj->plugin = $this->plugin_slug;
+			$obj->plugin = $this->slug;
 			$obj->package = $this->get_download_url( $remote_version->tag_name );
-			// $obj->tested = $remote_version->tested;
-			$transient->response[$this->plugin_slug] = $obj;
+			$transient->response[ $this->slug ] = $obj;
 		}
 		return $transient;
 	}
 
-	/**
-	 * Add our self-hosted description to the filter
-	 *
-	 * @param boolean $false
-	 * @param array $action
-	 * @param object $arg
-	 * @return bool|object
-	 */
 	public function plugins_api( $obj, $action, $arg )
 	{
 		if ( ( 'query_plugins' === $action || 'plugin_information' === $action ) &&
 				isset( $arg->slug ) && $arg->slug === $this->slug ) {
-			// Get the remote version
-			$res = wp_remote_get( $this->gh_api );
-			$body = wp_remote_retrieve_body( $res );
-			$remote_version = json_decode( $body );
+			$remote_version = $this->get_api_data();
+			$current_version = $this->get_plugin_info();
 
 			$obj = new stdClass();
 			$obj->slug = $this->slug;
-			$obj->plugin_name = $this->slug;
+			$obj->name = $current_version['Name'];
 			$obj->new_version = $remote_version->tag_name;
 			$obj->last_updated = $remote_version->published_at;
 			$obj->sections = array(
@@ -143,6 +80,28 @@ class GH_Auto_Update
 			$this->gh_user,
 			$this->gh_repo,
 			$tag_name
+		);
+	}
+
+	private function get_plugin_info()
+	{
+		$plugin = get_plugin_data( $this->plugin_file );
+		return $plugin;
+	}
+
+	private function get_api_data()
+	{
+		$res = wp_remote_get( $this->get_gh_api() );
+		$body = wp_remote_retrieve_body( $res );
+		return json_decode( $body );
+	}
+
+	private function get_gh_api()
+	{
+		return sprintf(
+			'https://api.github.com/repos/%s/%s/releases/latest',
+			$this->gh_user,
+			$this->gh_repo
 		);
 	}
 }
