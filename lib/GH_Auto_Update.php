@@ -13,6 +13,8 @@ class GH_Auto_Update
 	 * @var string
 	 */
 	private $gh_api;
+	private $gh_user;
+	private $gh_repo;
 
 	/**
 	 * Plugin Slug (plugin_directory/plugin_file.php)
@@ -50,11 +52,25 @@ class GH_Auto_Update
 		list ($t1, $t2) = explode( '/', $plugin_slug );
 		$this->slug = str_replace( '.php', '', $t2 );
 
-		// define the alternative API for updating checking
-		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'check_update' ) );
+		add_filter(
+			'pre_set_site_transient_update_plugins',
+			array( $this, 'pre_set_site_transient_update_plugins' )
+		);
 
-		// Define the alternative response for information checking
-		add_filter( 'plugins_api', array( $this, 'check_info' ), 10, 3 );
+		add_filter( 'plugins_api', array( $this, 'plugins_api' ), 10, 3 );
+
+		add_filter( 'upgrader_source_selection', array( $this, 'upgrader_source_selection' ), 1 );
+	}
+
+	public function upgrader_source_selection( $source )
+	{
+		if(  strpos( $source, $this->slug ) === false )
+			return $source;
+
+		$path_parts = pathinfo( $source );
+		$newsource = trailingslashit( $path_parts['dirname'] ) . trailingslashit( $this->slug );
+		rename( $source, $newsource );
+		return $newsource;
 	}
 
 	/**
@@ -63,7 +79,7 @@ class GH_Auto_Update
 	 * @param $transient
 	 * @return object $ transient
 	 */
-	public function check_update( $transient )
+	public function pre_set_site_transient_update_plugins( $transient )
 	{
 		if ( empty( $transient->checked ) ) {
 			return $transient;
@@ -96,7 +112,7 @@ class GH_Auto_Update
 	 * @param object $arg
 	 * @return bool|object
 	 */
-	public function check_info( $obj, $action, $arg )
+	public function plugins_api( $obj, $action, $arg )
 	{
 		if ( ( 'query_plugins' === $action || 'plugin_information' === $action ) &&
 				isset( $arg->slug ) && $arg->slug === $this->slug ) {
