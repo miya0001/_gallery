@@ -10,11 +10,29 @@
  * @package         Masonry_Gallery
  */
 
+require_once( 'lib/autoupdate.php' );
+
 class Masonry_Gallery
 {
 	public function __construct()
 	{
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
+		add_action( 'init', array( $this, 'autoupdate' ) );
+	}
+
+	function autoupdate()
+	{
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH.'wp-admin/includes/plugin.php';
+		}
+		$plugin = get_plugins( '/' . plugin_basename( dirname( __FILE__ ) ) );
+
+		// set auto-update params
+		$plugin_current_version = $plugin[ basename( __FILE__ ) ]['Version'];
+		$plugin_remote_path     = 'http://vccw.dev';
+		$plugin_slug            = plugin_basename( __FILE__ );
+
+		new wp_autoupdate( $plugin_current_version, $plugin_remote_path, $plugin_slug );
 	}
 
 	public function plugins_loaded()
