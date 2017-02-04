@@ -5,12 +5,12 @@
  * Description:     Grid style gallery plugin.
  * Author:          Takayuki Miyauchi
  * Author URI:      https://miya.io/
- * Version:         0.1.1
+ * Version:         0.1.4
  *
- * @package         Masonry_Gallery
+ * @package         Miya_Gallery
  */
 
-require_once( 'lib/GH_Auto_Update.php' );
+require_once( dirname( __FILE__ ) . '/vendor/autoload.php' );
 
 class Masonry_Gallery
 {
@@ -24,7 +24,7 @@ class Masonry_Gallery
 	{
 		$gh_user = 'miya0001';
 		$gh_repo = 'miya-gallery';
-		new GH_Auto_Update( $gh_user, $gh_repo, __FILE__ );
+		new Miya\WP\GH_Auto_Update( $gh_user, $gh_repo, __FILE__ );
 	}
 
 	public function plugins_loaded()

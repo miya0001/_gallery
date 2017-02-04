@@ -1,0 +1,56 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "68e377a5ab91f51e7f1f1d6d19bf8d85",
+    "content-hash": "ab505bcca49bed104d049989063c0afe",
+    "packages": [
+        {
+            "name": "miya/gh-auto-updater",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/miya0001/gh-auto-updater.git",
+                "reference": "f556dd4e9294c925472b8268468fae299cbf0366"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/miya0001/gh-auto-updater/zipball/f556dd4e9294c925472b8268468fae299cbf0366",
+                "reference": "f556dd4e9294c925472b8268468fae299cbf0366",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Miya\\WP\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL v2"
+            ],
+            "authors": [
+                {
+                    "name": "miya0001",
+                    "email": "miya@wpist.me"
+                }
+            ],
+            "time": "2017-02-04 08:35:58"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "miya/gh-auto-updater": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
