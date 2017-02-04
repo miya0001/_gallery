@@ -1,31 +1,33 @@
 sudo: false
-
 language: php
-
 notifications:
   email:
     on_success: never
     on_failure: change
-
-branches:
-  only:
-    - master
-
 php:
-  - 5.6
-  - 7.0
-
+- 5.6
+- 7.0
 env:
-  - WP_VERSION=latest WP_MULTISITE=0
-  - WP_VERSION=4.7 WP_MULTISITE=0
-
+- WP_VERSION=latest WP_MULTISITE=0
+- WP_VERSION=4.7 WP_MULTISITE=0
 matrix:
   include:
-    - php: 5.3
-      env: WP_VERSION=latest WP_MULTISITE=1
-
+  - php: 5.3
+    env: WP_VERSION=latest WP_MULTISITE=1
 before_script:
-  - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-
+- bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+- composer install
 script:
-  - phpunit
+- phpunit
+after_success:
+- composer install
+- rm -fr bin/ tests/ .editorconfig .gitignore .travis.yml phpunit.xml.dist
+- zip -r miya-gallery.zip .
+deploy:
+  provider: releases
+  api_key:
+    secure: PRcuxAgTZjmxi07PYcMn9+fmBrjTsGy00tXaplDn3uB2z5P5IWV0TJv49ZJI0IbdcAeBrFCXczmfrfIaygfY3bG15JjJIQiUO4nkesrMT4JLJzKy9XnN4itjMCvN/Vqkf1V39Hz0T4ELeWBwO9avcFPvvgkY9oKMsyENm3pptbXPi4TOiltntttmQt7uvgtKGEHLMcwFpSB/iRtuycrhrT33RIT5yGrYoJ30YW71eMmkOSdMOqiClaBsurJuWAW0SfuJQDi1tN74NnhjQtR3+0bw7CwSEh+YDYLjAkFZnbOKVu7AsKm4sRzCiA6rtTENmZgxxM/zeTyEcrbqU7D80/BQsjti6iPO+1t1MPs/xSdkIMrkkB2mljVQsauS4hnkaIxDJmsgGqoIfL7ob5PCVbjsMm0JEQUDdVmZBIsUd+BWhw85tTKBe4j51RmrvHc+cENepOHwOikK92fYlyJ7KDd8zcGoFY9ZIRAUcKktCG7zaRZWiSVU+56tr9GU+VGFWs/Vsd2PoIV8fwR/ST3tuJ2m4FaLSCIUNrQ2aFGYl6vqd2FzkGgosicCCO6k/cEtr1jBeedDZTcDV6rgEnhEppDdpHQR1Dsr/1a6a8bmKzIYgM0cwkM6ByV14RdRMaDVbuSHWUfylYGP8Xr+FXSLe73NxBIPI4nRW644tnhZgPs=
+  file: miya-gallery.zip
+  on:
+    tags: true
+    repo: miya0001/miya-gallery
