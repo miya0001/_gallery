@@ -25,6 +25,7 @@ after_success:
 - cd ..
 - zip -r $(basename $TRAVIS_REPO_SLUG).zip $(basename $TRAVIS_REPO_SLUG)
 - mv $(basename $TRAVIS_REPO_SLUG).zip $(basename $TRAVIS_REPO_SLUG)/
+- cd $(basename $TRAVIS_REPO_SLUG)/
 deploy:
   provider: releases
   api_key:
