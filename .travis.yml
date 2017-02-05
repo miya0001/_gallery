@@ -21,11 +21,11 @@ script:
 - phpunit
 after_success:
 - composer install
-- rm -fr bin/ tests/ .editorconfig .git .gitignore .travis.yml phpunit.xml.dist
-- sed -e "/nightly/${TRAVIS_TAG}/" miya-gallery.php > miya-gallery.php.tmp
+- rm -fr bin/ tests/ .editorconfig .gitignore .travis.yml phpunit.xml.dist
+- sed -e "s/nightly/${TRAVIS_TAG}/" miya-gallery.php > miya-gallery.php.tmp
 - mv miya-gallery.php.tmp miya-gallery.php
 - cd ..
-- zip -r $(basename $TRAVIS_REPO_SLUG).zip $(basename $TRAVIS_REPO_SLUG)
+- zip -r $(basename $TRAVIS_REPO_SLUG).zip $(basename $TRAVIS_REPO_SLUG) -x $(basename $TRAVIS_REPO_SLUG)/.git
 - mv $(basename $TRAVIS_REPO_SLUG).zip $(basename $TRAVIS_REPO_SLUG)/
 - cd $(basename $TRAVIS_REPO_SLUG)
 deploy:
