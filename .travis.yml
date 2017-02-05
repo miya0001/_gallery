@@ -22,7 +22,8 @@ script:
 after_success:
 - composer install
 - rm -fr bin/ tests/ .editorconfig .git .gitignore .travis.yml phpunit.xml.dist
-- sed -i -e "/nightly/${TRAVIS_TAG}/" miya-gallery.php
+- sed -e "/nightly/${TRAVIS_TAG}/" miya-gallery.php > miya-gallery.php.tmp
+- mv miya-gallery.php.tmp miya-gallery.php
 - cd ..
 - zip -r $(basename $TRAVIS_REPO_SLUG).zip $(basename $TRAVIS_REPO_SLUG)
 - mv $(basename $TRAVIS_REPO_SLUG).zip $(basename $TRAVIS_REPO_SLUG)/
