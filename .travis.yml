@@ -21,7 +21,7 @@ script:
 - phpunit
 after_success:
 - composer install
-- rm -fr bin/ tests/ .editorconfig .gitignore .travis.yml phpunit.xml.dist
+- rm -fr bin/ tests/ .editorconfig .gitignore .git .travis.yml phpunit.xml.dist
 - zip -r miya-gallery.zip .
 deploy:
   provider: releases
