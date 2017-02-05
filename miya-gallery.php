@@ -5,7 +5,7 @@
  * Description:     Grid style gallery plugin.
  * Author:          Takayuki Miyauchi
  * Author URI:      https://miya.io/
- * Version:         0.1.13
+ * Version:         0.1.14
  *
  * @package         Miya_Gallery
  */
