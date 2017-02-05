@@ -22,7 +22,9 @@ script:
 after_success:
 - composer install
 - rm -fr bin/ tests/ .editorconfig .gitignore .git .travis.yml phpunit.xml.dist
-- zip -r $(basename $TRAVIS_REPO_SLUG).zip .
+- cd ..
+- zip -r $(basename $TRAVIS_REPO_SLUG).zip $(basename $TRAVIS_REPO_SLUG)
+- mv $(basename $TRAVIS_REPO_SLUG).zip $(basename $TRAVIS_REPO_SLUG)/
 deploy:
   provider: releases
   api_key:
