@@ -25,7 +25,7 @@ after_success:
 - sed -e "s/nightly/${TRAVIS_TAG}/" miya-gallery.php > miya-gallery.php.tmp
 - mv miya-gallery.php.tmp miya-gallery.php
 - cd ..
-- zip -r $(basename $TRAVIS_REPO_SLUG).zip $(basename $TRAVIS_REPO_SLUG) -x $(basename $TRAVIS_REPO_SLUG)/.git
+- zip -r $(basename $TRAVIS_REPO_SLUG).zip $(basename $TRAVIS_REPO_SLUG) -x *.git*
 - mv $(basename $TRAVIS_REPO_SLUG).zip $(basename $TRAVIS_REPO_SLUG)/
 - cd $(basename $TRAVIS_REPO_SLUG)
 deploy:
