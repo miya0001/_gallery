@@ -4,7 +4,6 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "68e377a5ab91f51e7f1f1d6d19bf8d85",
     "content-hash": "ab505bcca49bed104d049989063c0afe",
     "packages": [
         {
@@ -47,7 +46,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2016-11-02 15:56:58"
+            "time": "2016-11-02T15:56:58+00:00"
         },
         {
             "name": "miya/gh-auto-updater",
@@ -55,12 +54,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/miya0001/gh-auto-updater.git",
-                "reference": "33e638e452c081dd2bd46f153663e4da508b14ce"
+                "reference": "85e481159ea72446991bfcdffd13a224be5ff8f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/miya0001/gh-auto-updater/zipball/33e638e452c081dd2bd46f153663e4da508b14ce",
-                "reference": "33e638e452c081dd2bd46f153663e4da508b14ce",
+                "url": "https://api.github.com/repos/miya0001/gh-auto-updater/zipball/85e481159ea72446991bfcdffd13a224be5ff8f0",
+                "reference": "85e481159ea72446991bfcdffd13a224be5ff8f0",
                 "shasum": ""
             },
             "require": {
@@ -85,7 +84,7 @@
                     "email": "miya@wpist.me"
                 }
             ],
-            "time": "2017-02-05 16:50:05"
+            "time": "2017-02-07 17:25:49"
         }
     ],
     "packages-dev": [],

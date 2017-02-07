@@ -25,7 +25,7 @@ class Masonry_Gallery
 		$plugin_slug = plugin_basename( __FILE__ );
 		$gh_user = 'miya0001';
 		$gh_repo = 'miya-gallery';
-		new Miya\WP\GH_Auto_Update( $plugin_slug, $gh_user, $gh_repo );
+		new Miya\WP\GH_Auto_Updater( $plugin_slug, $gh_user, $gh_repo );
 	}
 
 	public function plugins_loaded()
