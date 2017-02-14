@@ -20,14 +20,8 @@ before_script:
 script:
 - phpunit
 after_success:
-- composer install
-- rm -fr bin/ tests/ .editorconfig .gitignore .travis.yml phpunit.xml.dist
-- sed -e "s/nightly/${TRAVIS_TAG}/" miya-gallery.php > miya-gallery.php.tmp
-- mv miya-gallery.php.tmp miya-gallery.php
-- cd ..
-- zip -r $(basename $TRAVIS_REPO_SLUG).zip $(basename $TRAVIS_REPO_SLUG) -x *.git*
-- mv $(basename $TRAVIS_REPO_SLUG).zip $(basename $TRAVIS_REPO_SLUG)/
-- cd $(basename $TRAVIS_REPO_SLUG)
+- sed -i -e "s/nightly/${TRAVIS_TAG}/" $(basename $TRAVIS_REPO_SLUG).php
+- curl https://raw.githubusercontent.com/miya0001/auto-build/master/auto-build.sh | bash
 deploy:
   provider: releases
   api_key:

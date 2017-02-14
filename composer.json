@@ -6,8 +6,10 @@
             "email": "miya@wpist.me"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
-        "miya/gh-auto-updater": "dev-master"
+        "miya/gh-auto-updater": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.6"
     }
 }
