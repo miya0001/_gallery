@@ -30,7 +30,7 @@ class Masonry_Gallery
 
 	public function plugins_loaded()
 	{
-		add_filter( 'post_gallery', array( $this, 'post_gallery' ), 10, 3 );
+		add_filter( 'post_gallery', array( $this, 'post_gallery' ), 9999, 3 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 	}
 
