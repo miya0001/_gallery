@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name:     Miya Gallery
- * Plugin URI:      https://github.com/miya0001/miya-gallery
+ * Plugin Name:     _Gallery
+ * Plugin URI:      https://github.com/miya0001/_gallery
  * Description:     Grid style gallery plugin.
  * Author:          Takayuki Miyauchi
  * Author URI:      https://miya.io/
@@ -12,19 +12,19 @@
 
 require_once( dirname( __FILE__ ) . '/vendor/autoload.php' );
 
-class Masonry_Gallery
+class _Gallery
 {
 	public function __construct()
 	{
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
-		add_action( 'init', array( $this, 'autoupdate' ) );
+		add_action( 'init', array( $this, 'auto_update' ) );
 	}
 
-	function autoupdate()
+	function auto_update()
 	{
 		$plugin_slug = plugin_basename( __FILE__ );
 		$gh_user = 'miya0001';
-		$gh_repo = 'miya-gallery';
+		$gh_repo = '_gallery';
 		new Miya\WP\GH_Auto_Updater( $plugin_slug, $gh_user, $gh_repo );
 	}
 
@@ -36,11 +36,25 @@ class Masonry_Gallery
 
 	public function wp_enqueue_scripts()
 	{
+		wp_enqueue_script(
+			'lity-js',
+			plugins_url( 'js/lity.min.js', __FILE__ ),
+			array( 'jquery' ),
+			filemtime( dirname( __FILE__ ) . '/js/lity.min.js' ),
+			true
+		);
+		wp_enqueue_script(
+			'underscore-gallery',
+			plugins_url( 'js/script.js', __FILE__ ),
+			array( 'lity-js' ),
+			filemtime( dirname( __FILE__ ) . '/js/script.js' ),
+			true
+		);
 		wp_enqueue_style(
-			'masonry-gallery',
-			plugins_url( 'css/masonry-gallery.css', __FILE__ ),
+			'underscore-gallery',
+			plugins_url( 'css/style.min.css', __FILE__ ),
 			array(),
-			filemtime( dirname( __FILE__ ) . '/css/masonry-gallery.css' )
+			filemtime( dirname( __FILE__ ) . '/css/style.min.css' )
 		);
 	}
 
@@ -89,7 +103,7 @@ class Masonry_Gallery
 
 		$columns = intval( $atts['columns'] );
 
-		$output = "<div class='masonry-gallery' style='column-count: {$columns}; -moz-column-count: {$columns};'>";
+		$output = "<div class='underscore-gallery' style='column-count: {$columns}; -moz-column-count: {$columns};'>";
 
 		foreach ( $attachments as $id => $attachment ) {
 			if ( ! empty( $atts['link'] ) && 'file' === $atts['link'] ) {
@@ -100,7 +114,7 @@ class Masonry_Gallery
 				$image_output = wp_get_attachment_link( $id, $atts['size'], true, false, false );
 			}
 
-			$output .= "<figure class='masonry-gallery-item'>";
+			$output .= "<figure class='underscore-gallery-item'>";
 			$output .= $image_output;
 			$output .= "</figure>";
 		}
@@ -111,4 +125,4 @@ class Masonry_Gallery
 	}
 }
 
-$masonry_gallery = new Masonry_Gallery();
+$masonry_gallery = new _Gallery();

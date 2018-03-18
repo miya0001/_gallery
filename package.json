@@ -1,0 +1,12 @@
+{
+  "name": "underscore-gallery",
+  "dependencies": {},
+  "devDependencies": {
+    "clean-css-cli": "^4.1.11",
+    "lity": "^2.3.0"
+  },
+  "scripts": {
+    "build": "cp -f node_modules/lity/dist/lity.min.js js/ && cleancss -o css/style.min.css node_modules/lity/dist/lity.css src/style.css"
+  },
+  "license": "GPLv2"
+}

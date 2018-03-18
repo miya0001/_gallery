@@ -1,4 +1,4 @@
-.masonry-gallery
+.underscore-gallery
 {
 	column-gap: 8px;
 	-moz-column-gap: 8px;
@@ -6,7 +6,7 @@
 	padding: 0;
 }
 
-.masonry-gallery .masonry-gallery-item
+.underscore-gallery .underscore-gallery-item
 {
 	display: inline-block;
 	margin: 0 0 8px 0;
@@ -15,7 +15,7 @@
 	max-width: 100%;
 }
 
-.masonry-gallery a
+.underscore-gallery a
 {
 	display: block;
 	text-align: center;
@@ -24,10 +24,19 @@
 	border: none;
 }
 
-.masonry-gallery img
+.underscore-gallery img
 {
 	padding: 0;
 	margin: 0;
 	vertical-align: bottom;
+	border: none;
+}
+
+.lity-container
+{
+	max-width: 95%;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
 	border: none;
 }

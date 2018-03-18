@@ -1,11 +1,4 @@
 {
-    "name": "miya/miya-gallery",
-    "authors": [
-        {
-            "name": "miya0001",
-            "email": "miya@wpist.me"
-        }
-    ],
     "require": {
         "miya/gh-auto-updater": "*"
     },
