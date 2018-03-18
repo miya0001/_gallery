@@ -19,6 +19,7 @@ before_script:
   - composer install
   - npm install
   - npm run build
+  - composer global require "phpunit/phpunit=4.8.*|5.7.*"
 script:
   - phpunit
 after_success:
