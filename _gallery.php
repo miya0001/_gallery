@@ -36,6 +36,10 @@ class _Gallery
 
 	public function wp_enqueue_scripts()
 	{
+		if ( ! is_singular() ) {
+			return;
+		}
+
 		wp_enqueue_script(
 			'lity-js',
 			plugins_url( 'js/lity.min.js', __FILE__ ),
