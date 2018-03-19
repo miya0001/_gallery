@@ -1,7 +1,7 @@
 ( function( $ ) {
 	$( 'a' ).each( function() {
 		if ( $( this ).attr( 'href' ).match( /\.jpg$|\.jpeg$|\.gif$|\.png$/i ) ) {
-			if ( $( this ).find( '.underscore-gallery' ) ) {
+			if ( ! $( this ).parents( '.underscore-gallery' ).length ) {
 				$( this ).simpleLightbox();
 			}
 		}
