@@ -26,6 +26,9 @@ script:
 after_success:
   - sed -i -e "s/nightly/${TRAVIS_TAG}/" $(basename $TRAVIS_REPO_SLUG).php
   - curl https://raw.githubusercontent.com/miya0001/auto-build/master/auto-build.sh | bash
+  - npm install
+  - npm run build
+  - rm -fr src
 deploy:
   provider: releases
   skip_cleanup: true

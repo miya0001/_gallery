@@ -5,13 +5,12 @@
     "clean-css-cli": "^4.1.11",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
-    "gulp-rename": "^1.2.2",
+    "gulp-minify-css": "^1.2.4",
     "gulp-uglify": "^3.0.0",
-    "pump": "^3.0.0",
-    "rename": "^1.0.4"
+    "simplelightbox": "^1.12.1"
   },
   "scripts": {
-    "build": "rm -fr css && mkdir css && cleancss -o css/style.min.css src/style.css && curl https://raw.githubusercontent.com/osvaldasvalutis/imagelightbox.js/master/imagelightbox.js -o src/imagelightbox.js && gulp"
+    "build": "gulp"
   },
   "license": "GPLv2"
 }

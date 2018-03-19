@@ -1,15 +1,20 @@
 var gulp = require('gulp'),
-	gp_concat = require('gulp-concat'),
-	gp_rename = require('gulp-rename'),
-	gp_uglify = require('gulp-uglify');
+	concat = require('gulp-concat'),
+	minifyCSS = require('gulp-minify-css'),
+	uglify = require('gulp-uglify');
 
-gulp.task('js-fef', function(){
-	return gulp.src("src/*.js")
-		.pipe(gp_concat('script.min.js'))
-		// .pipe(gulp.dest('js'))
-		// .pipe(gp_rename('uglify.js'))
-		.pipe(gp_uglify())
-		.pipe(gulp.dest('dist'));
+gulp.task('js', function(){
+	return gulp.src(["node_modules/simplelightbox/dist/simple-lightbox.js", "src/*.js"])
+		.pipe(concat('script.min.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('js'));
 });
 
-gulp.task('default', ['js-fef'], function(){});
+gulp.task('css', function(){
+	return gulp.src(["node_modules/simplelightbox/dist/simplelightbox.css", "src/*.css"])
+		.pipe(concat('style.min.css'))
+		.pipe(minifyCSS())
+		.pipe(gulp.dest('css'))
+});
+
+gulp.task('default', ['js', 'css']);
