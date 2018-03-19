@@ -36,22 +36,11 @@ class _Gallery
 
 	public function wp_enqueue_scripts()
 	{
-		if ( ! is_singular() ) {
-			return;
-		}
-
-		wp_enqueue_script(
-			'lity-js',
-			plugins_url( 'js/lity.min.js', __FILE__ ),
-			array( 'jquery' ),
-			filemtime( dirname( __FILE__ ) . '/js/lity.min.js' ),
-			true
-		);
 		wp_enqueue_script(
 			'underscore-gallery',
-			plugins_url( 'js/script.js', __FILE__ ),
-			array( 'lity-js' ),
-			filemtime( dirname( __FILE__ ) . '/js/script.js' ),
+			plugins_url( 'js/script.min.js', __FILE__ ),
+			array( 'jquery' ),
+			filemtime( dirname( __FILE__ ) . '/js/script.min.js' ),
 			true
 		);
 		wp_enqueue_style(

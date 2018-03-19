@@ -6,3 +6,5 @@ node_modules/
 *.tar.gz
 
 /vendor/
+/css
+/js
