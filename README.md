@@ -6,14 +6,6 @@ This plugin will replace WordPress `[gallery]` shortcode to masonry layout.
 
 ![](https://www.evernote.com/l/ABUOZuavR05PbaoE2ICRvDS6LYbONZ8FVPgB/image.png)
 
-## Features
-
-* A lightweight, no-dependency.
-* CSS only, no JS.
-* Image only, no caption.
-
-So this plugin is very simple.
-
 ## Sample Output
 
 ```
