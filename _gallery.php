@@ -94,9 +94,10 @@ class _Gallery
 			return '';
 		}
 
-		$columns = intval( $atts['columns'] );
-
-		$output = "<div class='underscore-gallery' style='column-count: {$columns}; -moz-column-count: {$columns};'>";
+		$output = sprintf(
+			"<div class='underscore-gallery column-%d'>",
+			intval( $atts['columns'] )
+		);
 
 		foreach ( $attachments as $id => $attachment ) {
 			if ( ! empty( $atts['link'] ) && 'file' === $atts['link'] ) {
