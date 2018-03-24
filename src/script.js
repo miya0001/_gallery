@@ -1,6 +1,19 @@
 ( function( $ ) {
-	var el = document.querySelector( '.underscore-gallery' );
-	if ( el ) {
+	var need_css = false;
+	$( 'a' ).each( function() {
+		if ( $( this ).attr( 'href' ).match( /\.jpg$|\.jpeg$|\.gif$|\.png$/i ) ) {
+			if ( ! $( this ).parents( '.underscore-gallery' ).length ) {
+				$( this ).simpleLightbox();
+				need_css = true;
+			}
+		}
+	} );
+
+	var gallery = $( '.underscore-gallery a' ).simpleLightbox();
+	gallery.next();
+
+	var load_css = function() {
+
 		var me = '/_gallery/js/script.min.js';
 		var css = '/_gallery/css/style.min.css';
 
@@ -22,14 +35,8 @@
 		document.head.appendChild( link );
 	}
 
-	$( 'a' ).each( function() {
-		if ( $( this ).attr( 'href' ).match( /\.jpg$|\.jpeg$|\.gif$|\.png$/i ) ) {
-			if ( ! $( this ).parents( '.underscore-gallery' ).length ) {
-				$( this ).simpleLightbox();
-			}
-		}
-	} );
-
-	var gallery = $( '.underscore-gallery a' ).simpleLightbox();
-	gallery.next();
+	var el = document.querySelector( '.underscore-gallery' );
+	if ( el || need_css ) {
+		load_css();
+	}
 } )( jQuery );
