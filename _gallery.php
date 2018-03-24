@@ -14,6 +14,8 @@ require_once( dirname( __FILE__ ) . '/vendor/autoload.php' );
 
 class _Gallery
 {
+	const version = 'nightly';
+
 	public function __construct()
 	{
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
@@ -40,14 +42,8 @@ class _Gallery
 			'underscore-gallery',
 			plugins_url( 'js/script.min.js', __FILE__ ),
 			array( 'jquery' ),
-			filemtime( dirname( __FILE__ ) . '/js/script.min.js' ),
+			self::version,
 			true
-		);
-		wp_enqueue_style(
-			'underscore-gallery',
-			plugins_url( 'css/style.min.css', __FILE__ ),
-			array(),
-			filemtime( dirname( __FILE__ ) . '/css/style.min.css' )
 		);
 	}
 
