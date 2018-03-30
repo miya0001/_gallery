@@ -8,9 +8,12 @@
 			}
 		}
 	} );
-
-	var gallery = $( '.underscore-gallery a' ).simpleLightbox();
-	gallery.next();
+	
+	var galleries = $( '.underscore-gallery' );
+	for ( var i = 0; i < galleries.length; i++ ) {
+        var gallery = $( "a", galleries[ i ] ).simpleLightbox();
+        gallery.next();
+    }
 
 	var load_css = function() {
 
