@@ -1,5 +1,9 @@
 {
     "require": {
         "miya/gh-auto-updater": "*"
+    },
+    "require-dev": {
+        "symfony/dom-crawler": "^3.4",
+        "symfony/css-selector": "^3.4"
     }
 }
