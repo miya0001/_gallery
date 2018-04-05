@@ -65,7 +65,7 @@ class _Gallery
 			'orderby'    => 'menu_order ID',
 			'id'         => $post ? $post->ID : 0,
 			'columns'    => 3,
-			'size'       => 'medium',
+			'size'       => 'thumbnail',
 			'include'    => '',
 			'exclude'    => '',
 			'link'       => 'file'
