@@ -11,6 +11,8 @@ branches:
 php:
   - 7.2
   - 7.0
+services:
+  - mysql
 env:
   - WP_VERSION=latest WP_MULTISITE=0
   - WP_VERSION=trunk WP_MULTISITE=0
