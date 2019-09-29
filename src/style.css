@@ -4,6 +4,7 @@
 	-moz-column-gap: 8px;
 	margin: 1em 0;
 	padding: 0;
+	display: flex;
 	-webkit-perspective: 1;
 }
 
