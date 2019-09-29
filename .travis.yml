@@ -9,30 +9,31 @@ branches:
   - master
   - "/^v?[0-9\\.]+/"
 php:
-  - 7.2
-  - 7.0
+- 7.2
+- 7.0
 env:
-  - WP_VERSION=latest WP_MULTISITE=0
-  - WP_VERSION=trunk WP_MULTISITE=0
+- WP_VERSION=latest WP_MULTISITE=0
+- WP_VERSION=trunk WP_MULTISITE=0
 before_script:
-  - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-  - composer install
-  - npm install
-  - npm run build
-  - composer global require "phpunit/phpunit=4.8.*|5.7.*"
-  - npm install
-  - npm run build
+- export PATH="$HOME/.composer/vendor/bin:$PATH"
+- bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+- composer install
+- npm install
+- npm run build
+- composer global require "phpunit/phpunit=4.8.*|5.7.*"
+- npm install
+- npm run build
 script:
-  - phpunit
+- phpunit
 after_success:
-  - sed -i -e "s/nightly/${TRAVIS_TAG}/" $(basename $TRAVIS_REPO_SLUG).php
-  - curl https://raw.githubusercontent.com/miya0001/auto-build/master/auto-build.sh | bash
+- sed -i -e "s/nightly/${TRAVIS_TAG}/" $(basename $TRAVIS_REPO_SLUG).php
+- curl https://raw.githubusercontent.com/miya0001/auto-build/master/auto-build.sh
+  | bash
 deploy:
   provider: releases
   skip_cleanup: true
   api_key:
-    secure: yROMVQbTr6D1FszbJC1H5AlghnBschA4wzZvfy60Clf3iVz7KdReDCN784c9bI1hOKhWXdguCq4jgYkk7PqqS+vaZCmVhwlfntrtdJChPJB2PVt2s5TS5zu01024PsYv1u5nzafxv8aq0xTXRYjVYxpCGOmKkcrSChTbv+GpatIaA0BLlHyKF6lzIf3JNZ56Y19AyBxhiE9Mblit9xuHcomjuvCz5MGVDFI+/vswJOy8dIQ3FBeSmZhpTDNmVI4yi6eXjIwdyPNEiAieqmmdAoekFy1+3e3Zj3uvhM799cPyIxhBJCqkaqJpDpgD3ka7fx+OgVBtFxJYS9K9ThzG1Ei6VLSslnKBkEN+w9nG+fHEUAhEI5vxjECH5p4yuV5W8ncd0sRuzWqOJkQINmdmjh/liLFPatlcUQoGBfxDqPcpNiF4sirrTF1E/96NWzlSTsfqMfTdwoxtJUM9wYMD0i2fn27GALtdj4bHptlkZFruBhXj0EGPOgyQYQpYqt5TekSE/QeE7AkB4cqyxUJbSUmQhhjrJyHgseDGmEF7MEUeL2v4/aORH8//XZONr6Zph1mSWs1ZSmVmmPKM1bnFom9hathfYIpWz4/L4+in500NP1Zk0spqfceovFwi8Mbolv3/Ruozi1KKlTditBdGb6j0681OAPOC0ATZPDetm1E=
+    secure: z+oxp/vjLwgGI0e636T1LQ9Q8McSpDE3iHrH0mEPuEkrdBS9Gynvjs0OXY7ylLNNg+KJ5Ga7gADVLrJTYR0PA/i71tKFs8gpomh6eFOMT2Wv5fZmPc+yHKZYrz/dtVtA+XWmNGzYlI1AB7IP4lafG4Fll+8sUCmgW7RdEzMe3qUQKj8+QJIQ35kNK1zrQXKnOTnIQeGBDcCWwjWrbJZMpnSUSLPVrsx/NRTrJEZADY5562ZJWZg1kFtXnH9gtfH530ejQ6WYkVDtKxXadJfKrs86SesjL6viVGkYjXdCGCc+etytnaJhwLtXmIbpIMQt7myUfOEWwfCwKvD4lBVVjWFzCNbc4XgvRNfqRc86yppjT6ouAWSok8gOJd5t4pgQGP/bjyap6ZLnkQWtP6ErDdVc/ugd1yyy2qTqVKaDtt85xEmmDjmlZO1EcEY6Ij58s0mdhmqd67bTbs1D49aKox31COiFbcCZh4qnSCBX82NOOXAVjNB9CngZy3bpoHcUF2x3NjU5ts0C/sm0IQiy1hjGkwZQchXKZIPef0p34ZtfHA7ho4OycCfFob6Qgnou1r3Rr8UeJQMjybng3iWsLn0HbD2/pPW0TmU/k/hbkaLfJEJ8eiEBfrrc3IG+3+TKr5ja6UD4XPskXvrF0zg+hqlauRy+wFEVtBwXNjG97eE=
   file: '_gallery.zip'
   on:
     tags: true
